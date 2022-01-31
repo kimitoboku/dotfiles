@@ -1,6 +1,6 @@
 # setup
 ```
-git clone https://github.com/nuta/dotfiles .dotfiles
+git clone https://github.com/kimitoboku/dotfiles .dotfiles
 cd .dotfiles
 ./setup
 ```
