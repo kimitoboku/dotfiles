@@ -1,0 +1,81 @@
+#!/bin/bash
+set -e
+
+macos() {
+    if ! which brew > /dev/null; then
+        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    fi
+}
+
+ubuntu() {
+}
+
+centos() {
+}
+
+opensuse() {
+}
+
+linux() {
+    source /etc/os-release
+    case "$ID" in 
+        "ubuntu") ubuntu;;
+        "centos") centos;;
+        "opensuse-leap") opensuse;;
+	"opensuse-tumblewee") opensuse;;
+        *) ;;
+    esac
+}
+
+zsh() {
+    mkdir -p $HOME/.ssh
+    cd $HOME/.zsh
+    curl -o git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
+    curl -o git-completion.bash https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
+    curl -o _git https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh
+    
+    if [[ ! -d ~/.zsh/zsh-syntax-highlighting ]]; then
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.zsh/zsh-syntax-highlighting
+    fi
+
+    if [[ ! -d ~/.zsh/dircolors-solarized ]]; then
+        git clone https://github.com/seebi/dircolors-solarized.git ~/.zsh/dircolors-solarized
+    fi
+
+    if [[ ! -d ~/.zsh/zsh-completions ]]; then
+        git clone https://github.com/zsh-users/zsh-completions ~/.zsh/zsh-completions
+    fi
+
+    ln -s ~/.dotfiles/zshrc ~/.zshrc
+}
+
+tmux() {
+    ln -s ~/.dotfiles/tmux.conf ~/.tmux.conf
+}
+
+git() {
+    ln -s ~/.dotfiles/gitconfig ~/.gitconfig
+}
+
+python() {
+    if [[ ! -d ~/.zsh/zsh-syntax-highlighting ]]; then
+        git clone git://github.com/yyuu/pyenv.git ~/.pyenv
+    fi
+}
+
+direnv() {
+    mkdir -p $HOME/bin
+    bin_path=$HOME/bin
+    if [[ ! -f "$bin_path/direnv" ]]; then
+        curl -sfL https://direnv.net/install.sh | bash
+    fi
+}
+
+if [[ "$(uname)" == "Darwin" ]]; then
+    macos
+fi
+
+if [[ "$(uname)" == "Linux" ]]; then
+    linux
+fi
+
