@@ -11,6 +11,11 @@ ubuntu() {
 }
 
 centos() {
+    sudo yum install git zsh tmux curl wget coreutils
+
+    zsh_setup
+    tmux_setup
+    git_setup
 }
 
 opensuse() {
@@ -27,7 +32,7 @@ linux() {
     esac
 }
 
-zsh() {
+zsh_setup() {
     mkdir -p $HOME/.ssh
     cd $HOME/.zsh
     curl -o git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
@@ -49,15 +54,15 @@ zsh() {
     ln -s ~/.dotfiles/zshrc ~/.zshrc
 }
 
-tmux() {
+tmux_setup() {
     ln -s ~/.dotfiles/tmux.conf ~/.tmux.conf
 }
 
-git() {
+git_setup() {
     ln -s ~/.dotfiles/gitconfig ~/.gitconfig
 }
 
-python() {
+python_setup() {
     if [[ ! -d ~/.zsh/zsh-syntax-highlighting ]]; then
         git clone git://github.com/yyuu/pyenv.git ~/.pyenv
     fi
