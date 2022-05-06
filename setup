@@ -8,6 +8,7 @@ macos() {
 }
 
 ubuntu() {
+    sudo apt install git zsh tmux curl wget coreutils
 }
 
 centos() {
