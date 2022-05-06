@@ -16,6 +16,9 @@ centos() {
     zsh_setup
     tmux_setup
     git_setup
+
+    golang_install
+    docker_install
 }
 
 opensuse() {
@@ -74,6 +77,18 @@ direnv() {
     if [[ ! -f "$bin_path/direnv" ]]; then
         curl -sfL https://direnv.net/install.sh | bash
     fi
+}
+
+golang_install() {
+    cd /tmp
+    wget https://go.dev/dl/go1.18.1.linux-amd64.tar.gz
+    rm -rf /usr/local/go && tar -C /usr/local -xzf go1.18.1.linux-amd64.tar.gz
+}
+
+docker_install() {
+    cd /tmp
+    curl -fsSL https://get.docker.com -o get-docker.sh
+    sudo sh get-docker.sh
 }
 
 if [[ "$(uname)" == "Darwin" ]]; then

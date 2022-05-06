@@ -89,3 +89,6 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
 eval "$(direnv hook bash)"
+
+
+export PATH=$PATH:/usr/local/go/bin
